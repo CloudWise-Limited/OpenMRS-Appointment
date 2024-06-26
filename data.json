@@ -1,0 +1,56 @@
+[
+   {
+      "uuid":"57e92b5f-aca7-4eee-be5e-656dafdfd016",
+      "display":"Gynecology : Scheduled",
+      "startDate":"2024-06-25T08:00:00.000+0000",
+      "endDate":"2024-06-25T11:00:00.000+0000",
+      "telephoneNumber":"254776080316",
+      "doctorName":"Jake Smith",
+      "patientName":"Moreen Mary Mary"
+   },
+   {
+      "uuid":"570f3fcc-f411-48e5-a080-6c74a216353a",
+      "display":"Obstetrics : Scheduled",
+      "startDate":"2024-06-26T08:00:00.000+0000",
+      "endDate":"2024-06-26T11:00:00.000+0000",
+      "telephoneNumber":"254776080316",
+      "doctorName":"John Smith",
+      "patientName":"Jackline Jacque Jacque"
+   },
+   {
+      "uuid":"9b2aabdb-c3dc-402a-be8b-65a371f10159",
+      "display":"Neurology : Scheduled",
+      "startDate":"2024-06-27T08:00:00.000+0000",
+      "endDate":"2024-06-27T11:00:00.000+0000",
+      "telephoneNumber":"254776080316",
+      "doctorName":"Jane Smith",
+      "patientName":"Moses wangamati Wangamati"
+   },
+   {
+      "uuid":"52bf4c0a-31e5-437e-a1b5-e3c79b977ad0",
+      "display":"Gynecology : Scheduled",
+      "startDate":"2024-06-28T08:00:00.000+0000",
+      "endDate":"2024-06-28T11:00:00.000+0000",
+      "telephoneNumber":"254776080316",
+      "doctorName":"Jake Smith",
+      "patientName":"Daniel James James"
+   },
+   {
+      "uuid":"fe15fb0d-28cb-4351-943f-43f2cdb6f290",
+      "display":"Dermatology : Scheduled",
+      "startDate":"2024-06-25T08:00:00.000+0000",
+      "endDate":"2024-06-25T11:00:00.000+0000",
+      "telephoneNumber":"254776080316",
+      "doctorName":"Jake Smith",
+      "patientName":"Elsy Joy Joy"
+   },
+   {
+      "uuid":"f4e1eeb3-46dc-4cdc-8c00-f81b93825638",
+      "display":"Dermatology : Scheduled",
+      "startDate":"2024-07-01T08:00:00.000+0000",
+      "endDate":"2024-07-01T11:00:00.000+0000",
+      "telephoneNumber":"254776080316",
+      "doctorName":"Jane Smith",
+      "patientName":"Chris Martin Martin"
+   }
+]

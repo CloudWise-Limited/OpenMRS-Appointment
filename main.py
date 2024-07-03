@@ -66,7 +66,7 @@ def get_appointments_from_db():
 
 def send_sms_reminder(appointment: Appointment):
     phone_number = appointment.telephone_number
-    message = f"Hello {appointment.patient_name}, You have a {appointment.display} appointment with {appointment.doctor_name} today."
+    message = f"Hello {appointment.patient_name}, you have a {appointment.display} appointment with Dr {appointment.doctor_name} today."
     url = 'https://api.bulk.ke/sms/sendsms'
     headers = {
         'h_api_key': BULK_KE_API_KEY,

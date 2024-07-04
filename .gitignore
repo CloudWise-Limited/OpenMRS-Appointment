@@ -1,0 +1,14 @@
+# Ignore environment variables file
+.env
+
+# Ignore specific Python scripts
+appointment.py
+cut.py
+excel.py
+
+# Ignore data files
+appointments.xlsx
+data.json
+
+
+__pycache__/

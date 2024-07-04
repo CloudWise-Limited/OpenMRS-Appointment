@@ -1,9 +1,17 @@
 import requests
 import psycopg2
 from psycopg2 import sql
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 
 # URL to fetch appointments
-url = 'https://openmrs.cloudwise.co.ke/openmrs/ws/rest/v1/appointmentscheduling/appointment'
+url = os.getenv('API_URL')
+
+# API authentication
+auth = (os.getenv('API_USERNAME'), os.getenv('API_PASSWORD'))
 
 # Query parameters
 params = {
@@ -11,7 +19,7 @@ params = {
 }
 
 # Make the GET request
-response = requests.get(url, auth=('Admin', 'Admin123'), params=params)
+response = requests.get(url, auth=auth, params=params)
 
 # Check the response status
 if response.status_code == 200:
@@ -45,11 +53,11 @@ if response.status_code == 200:
     
     # Database connection details
     conn = psycopg2.connect(
-        dbname="appointments_db",
-        user="postgres",
-        password="@Syanwa2000",
-        host="localhost",
-        port="5432"
+        dbname=os.getenv('DB_NAME'),
+        user=os.getenv('DB_USER'),
+        password=os.getenv('DB_PASSWORD'),
+        host=os.getenv('DB_HOST'),
+        port=os.getenv('DB_PORT')
     )
     
     # Create a cursor object

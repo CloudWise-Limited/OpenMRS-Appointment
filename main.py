@@ -4,9 +4,11 @@ from typing import List
 from pydantic import BaseModel
 import logging
 from apscheduler.schedulers.background import BackgroundScheduler
-from apscheduler.triggers.interval import IntervalTrigger
+from apscheduler.triggers.cron import CronTrigger
 from datetime import datetime, timedelta, date
 import requests
+from dotenv import load_dotenv
+import os
 
 app = FastAPI()
 
@@ -14,9 +16,17 @@ app = FastAPI()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# Load environment variables from .env file
+load_dotenv()
+
 # Environment variables
-BULK_KE_API_KEY = "a0ee1604c1cd462eeadb42d5d2f2051f96db54a00a3f5ce1bdb45a4d90a3eb54"
-BULK_KE_SENDER_NAME = "Speed_Crash"
+BULK_KE_API_KEY = os.getenv("BULK_KE_API_KEY")
+BULK_KE_SENDER_NAME = os.getenv("BULK_KE_SENDER_NAME")
+DB_NAME = os.getenv("DB_NAME")
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_HOST = os.getenv("DB_HOST")
+DB_PORT = os.getenv("DB_PORT")
 
 class Appointment(BaseModel):
     display: str
@@ -32,11 +42,11 @@ class SMSData(BaseModel):
 def get_appointments_from_db():
     try:
         connection = psycopg2.connect(
-            dbname="appointments_db",
-            user="postgres",
-            password="@Syanwa2000",
-            host="localhost",
-            port="5432"
+            dbname=DB_NAME,
+            user=DB_USER,
+            password=DB_PASSWORD,
+            host=DB_HOST,
+            port=DB_PORT
         )
         cursor = connection.cursor()
         query = """
@@ -44,7 +54,7 @@ def get_appointments_from_db():
             FROM appointments
             WHERE DATE(end_date) = %s
         """
-        cursor.execute(query, (date.today(),))
+        cursor.execute(query, (date.today() + timedelta(days=1),))
         rows = cursor.fetchall()
         appointments = []
         for row in rows:
@@ -66,7 +76,7 @@ def get_appointments_from_db():
 
 def send_sms_reminder(appointment: Appointment):
     phone_number = appointment.telephone_number
-    message = f"Hello {appointment.patient_name}, you have a {appointment.display} appointment with Dr {appointment.doctor_name} today."
+    message = f"Hello {appointment.patient_name}, you have a {appointment.display} appointment with Dr {appointment.doctor_name} tomorrow."
     url = 'https://api.bulk.ke/sms/sendsms'
     headers = {
         'h_api_key': BULK_KE_API_KEY,
@@ -90,13 +100,14 @@ def send_sms_reminder(appointment: Appointment):
 def schedule_sms_reminders():
     appointments = get_appointments_from_db()
     for appointment in appointments:
-        scheduler.add_job(send_sms_reminder, IntervalTrigger(minutes=5), args=[appointment])
+        send_sms_reminder(appointment)
 
 @app.on_event("startup")
 def startup_event():
     global scheduler
     scheduler = BackgroundScheduler()
-    scheduler.add_job(schedule_sms_reminders, 'interval', minutes=5)
+    # Schedule the job to run once a day at 4:40 PM
+    scheduler.add_job(schedule_sms_reminders, CronTrigger(hour=16, minute=50))
     scheduler.start()
     logger.info("Scheduler started")
 

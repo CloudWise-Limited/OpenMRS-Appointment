@@ -2,13 +2,13 @@
 .env
 
 # Ignore specific Python scripts
-appointment.py
-cut.py
-excel.py
+# appointment.py
+# cut.py
+# excel.py
 
 # Ignore data files
-appointments.xlsx
-data.json
+# appointments.xlsx
+# data.json
 
 
-__pycache__/
+__pycache__
